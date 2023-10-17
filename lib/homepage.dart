@@ -5,15 +5,12 @@ import 'dart:convert';
 
 import 'apimodel.dart';
 
-
 class MyNewsApp extends StatefulWidget {
   @override
   _MyNewsAppState createState() => _MyNewsAppState();
 }
 
 class _MyNewsAppState extends State<MyNewsApp> {
-
-
   List<Article> articles = [];
 
   @override
@@ -23,7 +20,8 @@ class _MyNewsAppState extends State<MyNewsApp> {
   }
 
   void makeRequest() async {
-    var url = Uri.parse('https://newsapi.org/v2/everything?q=apple&from=2023-04-17&to=2023-04-17&sortBy=popularity&apiKey=d18c18a219224ef78fddfefb842b1297');
+    var url = Uri.parse(
+        'https://newsapi.org/v2/everything?q=bitcoin&apiKey=49fe83b5cf85471f8bd4d35ff3f208a5');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -42,7 +40,7 @@ class _MyNewsAppState extends State<MyNewsApp> {
       appBar: AppBar(
         title: Text('My News App'),
       ),
-      body:  ListView.builder(
+      body: ListView.builder(
         itemCount: articles.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
@@ -55,19 +53,23 @@ class _MyNewsAppState extends State<MyNewsApp> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: NetworkImage(articles[index].urlToImage??''))),
+                            image: NetworkImage(
+                                articles[index].urlToImage ?? ''))),
                   ),
                 ],
               ),
-              Text(articles[index].title
-                ,overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.roboto(fontSize: 30,fontWeight: FontWeight.bold),
+              Text(
+                articles[index].title,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.roboto(
+                    fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              Text(articles[index].description ?? '',overflow: TextOverflow.ellipsis,
+              Text(
+                articles[index].description ?? '',
+                overflow: TextOverflow.ellipsis,
                 maxLines: 5,
               ),
             ],
-
           );
         },
       ),
